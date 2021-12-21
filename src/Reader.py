@@ -3,8 +3,7 @@ from PIL import Image as im
 
 
 class PNGReader:
-    # TODO: Remove path default value for production use
-    def __init__(self, read_path: str = '../resources/test.png'):
+    def __init__(self, read_path: str):
         # Image data
         self.img = im.open(read_path, 'r')  # Throws FileNotFoundError
         self.array = np.array(list(self.img.getdata()))
