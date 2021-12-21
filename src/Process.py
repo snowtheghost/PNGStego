@@ -22,7 +22,7 @@ class Process:
     def decode(self):
         png_reader = PNGReader('../resources/test_output.png')
         png_decoder = PNGDecoder(png_reader.get_array(), png_reader.get_data())
-        png_decoder.decode_except(['11111111'])
+        png_decoder.decode_except(['11111111'])  # TODO: More selective algorithm
 
 
 if __name__ == "__main__":
