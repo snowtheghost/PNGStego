@@ -11,7 +11,7 @@ class PNGReader:
         # Image specifications
         self.width, self.height = self.img.size
         self.mode = self.img.mode
-        self.n = {'RGB': 3, 'RGBA': 4}[self.img.mode]
+        self.n = {'RGB': 3, 'RGBA': 4}[self.img.mode]  # Throws KeyError
         self.pixels = self.array.size // self.n
 
     def get_data(self):
@@ -45,8 +45,7 @@ class StringReader:
 
 # TODO: Remove for production use
 if __name__ == "__main__":
-    with open('../resources/text.txt', 'r') as file:
-        text = file.read().replace('\n', '')
-    str_reader = StringReader(text)
-    print(str_reader.message)
-    print(str_reader.text)
+    image = im.open('../resources/test_shape.png').convert('RGBA')
+    new_image = im.new("RGBA", image.size, "WHITE")  # Create a white rgba background
+    new_image.paste(image, (0, 0), image)  # Paste the image on the background. Go to the links given below for details.
+    new_image.convert('RGB').save('../resources/test_shape.png', "PNG")

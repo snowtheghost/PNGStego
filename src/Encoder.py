@@ -18,6 +18,16 @@ class PNGEncoder:
                     self.array[p][q] = int(self.message[i:i+8], 2)
                     i += 8
 
+    def encode_except(self, colors: list) -> None:
+        # TODO: Check if there is sufficient capacity for the message
+        i = 0
+        for p in range(self.data['capacity']):
+            for q in range(0, 3):
+                if i < len(self.message) and format(self.array[p][q], '#010b')[2:] not in colors:
+                    # TODO: Allow for selection of bits
+                    self.array[p][q] = int(self.message[i:i+8], 2)
+                    i += 8
+
     def get_array(self):
         return self.array
 
