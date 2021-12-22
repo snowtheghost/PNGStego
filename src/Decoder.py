@@ -34,3 +34,20 @@ class PNGDecoder:
             if message_bytes[i] not in colors:  # Assumes that text never uses 255
                 text += chr(int(message_bytes[i], 2))
         print(text)  # TODO: Use return
+
+    def decode_file_except(self, colors: list):
+        data = []
+        for p in range(self.data['capacity']):
+            for q in range(0, 3):
+                # TODO: Allow for selection of bits
+                if (self.array[p][0] != colors[0]
+                        or self.array[p][1] != colors[1]
+                        or self.array[p][2] != colors[2]):
+                    data.append(self.array[p][q])
+
+        message = np.array(data, np.dtype('B'))
+        print(message)
+        # TODO: Remove for production
+        open('../resources/file_output.mp3', 'wb').write(message.tobytes())
+
+        # TODO: Use return

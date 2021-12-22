@@ -1,5 +1,6 @@
 import numpy as np
 from PIL import Image as im
+import PIL.ImageOps
 
 
 class PNGReader:
@@ -28,10 +29,21 @@ class PNGReader:
         return self.array
 
 
-class StringReader:
+class MessageReader:
+    def __init__(self):
+        self.message = self.translate()
+
+    def translate(self) -> str:
+        pass
+
+    def get_message(self) -> str:
+        return self.message
+
+
+class StringReader(MessageReader):
     def __init__(self, text: str):
         self.text = text
-        self.message = self.translate()
+        MessageReader.__init__(self)
 
     def translate(self) -> str:
         return ''.join([format(ord(i), "08b") for i in self.text])
@@ -43,9 +55,17 @@ class StringReader:
         return self.message
 
 
+class FileReader(MessageReader):
+    def __init__(self, file_path: str):
+        self.file = open(file_path, 'rb')
+        MessageReader.__init__(self)
+        print(self.message)
+
+    def translate(self) -> np:
+        return np.fromfile(self.file, np.dtype('B'))
+
+
 # TODO: Remove for production use
 if __name__ == "__main__":
-    image = im.open('../resources/test_shape.png').convert('RGBA')
-    new_image = im.new("RGBA", image.size, "WHITE")  # Create a white rgba background
-    new_image.paste(image, (0, 0), image)  # Paste the image on the background. Go to the links given below for details.
-    new_image.convert('RGB').save('../resources/test_shape.png', "PNG")
+    image = im.open('../resources/test_shape.png')
+    PIL.ImageOps.invert(image).save('../resources/test_shape.png', "PNG")
