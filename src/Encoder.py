@@ -23,7 +23,10 @@ class PNGEncoder:
         i = 0
         for p in range(self.data['capacity']):
             for q in range(0, 3):
-                if i < len(self.message) and format(self.array[p][q], '#010b')[2:] not in colors:
+                if i < len(self.message) \
+                        and (self.array[p][0] != colors[0]
+                             or self.array[p][1] != colors[1]
+                             or self.array[p][2] != colors[2]):
                     # TODO: Allow for selection of bits
                     self.array[p][q] = int(self.message[i:i+8], 2)
                     i += 8

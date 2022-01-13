@@ -26,7 +26,10 @@ class PNGDecoder:
         for p in range(self.data['capacity']):
             for q in range(0, 3):
                 # TODO: Allow for selection of bits
-                message += (format(self.array[p][q], '#010b')[2:])
+                if (self.array[p][0] != colors[0]
+                        or self.array[p][1] != colors[1]
+                        or self.array[p][2] != colors[2]):
+                    message += (format(self.array[p][q], '#010b')[2:])
 
         message_bytes = [message[i:i+8] for i in range(0, len(message), 8)]
         text = ""
