@@ -10,21 +10,21 @@ class Process:
         pass
 
     def encode(self):
-        png_reader = PNGReader('../resources/HiddenFeelings001_Shape.png')
-        with open('../resources/text.txt', 'r') as file:
-            text = file.read()
-        reader = StringReader(text)
-        # reader = FileReader('../resources/HiddenFeelings000_Payload.mp3')
+        png_reader = PNGReader('../resources/HiddenFeelings000_Shape.png')
+        # with open('../resources/text.txt', 'r') as file:
+        #     text = file.read()
+        # reader = StringReader(text)
+        reader = FileReader('../resources/HiddenFeelings000_Payload.png')
         png_encoder = PNGEncoder(png_reader.get_array(), png_reader.get_data(), reader.get_message())
-        png_encoder.encode_except([0, 0, 0])
+        png_encoder.encode_file_except([8, 5, 2])
         png_writer = PNGWriter(png_encoder.get_array(), png_reader.get_data())
         png_writer.write()
 
     def decode(self):
         png_reader = PNGReader('../resources/test_output.png')
         png_decoder = PNGDecoder(png_reader.get_array(), png_reader.get_data())
-        png_decoder.decode_except([0, 0, 0])
-        # png_decoder.decode_file_except([0, 0, 0])  # TODO: More selective algorithm
+        # png_decoder.decode_except([0, 0, 0])
+        png_decoder.decode_file_except([8, 5, 2])  # TODO: More selective algorithm
 
 
 if __name__ == "__main__":

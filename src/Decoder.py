@@ -51,6 +51,6 @@ class PNGDecoder:
         message = np.array(data, np.dtype('B'))
         print(message)
         # TODO: Remove for production
-        open('../resources/file_output.mp3', 'wb').write(message.tobytes())
+        open('../resources/file_output.png', 'wb').write(message.tobytes())
 
         # TODO: Use return
